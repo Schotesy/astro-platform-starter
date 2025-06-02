@@ -1,13 +1,11 @@
 import { defineConfig } from 'astro/config';
-import netlify from '@astrojs/netlify';
 import react from '@astrojs/react';
-import tailwindcss from '@tailwindcss/vite';
+import netlify from '@astrojs/netlify';
 import sitemap from '@astrojs/sitemap';
 import prefetch from '@astrojs/prefetch';
-import viteCompression from 'vite-plugin-compression';
 
 export default defineConfig({
-  site: 'https://bullcast.com',
+  site: 'https://bullcast.netlify.app',
   integrations: [
     netlify({
       edgeMiddleware: false
@@ -17,18 +15,18 @@ export default defineConfig({
     prefetch()
   ],
   output: 'static',
+  build: {
+    inlineStylesheets: 'auto'
+  },
   vite: {
-    plugins: [
-      tailwindcss(),
-      viteCompression()
-    ]
-  },
-  typescript: {
-    strict: true
-  },
-  image: {
-    service: {
-      entrypoint: 'astro/assets/services/sharp'
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'react-vendor': ['react', 'react-dom']
+          }
+        }
+      }
     }
   }
 });
