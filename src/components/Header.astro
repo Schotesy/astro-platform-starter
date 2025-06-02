@@ -1,30 +1,1055 @@
 ---
-import Logo from '../components/Logo.astro';
-
-const navItems = [
-    { linkText: 'Home', href: '/' },
-    { linkText: 'Revalidation', href: '/revalidation' },
-    { linkText: 'Image CDN', href: '/image-cdn' },
-    { linkText: 'Edge Function', href: '/edge' },
-    { linkText: 'Blobs', href: '/blobs' }
+// Header navigation data
+const navigation = [
+  { 
+    name: 'Product', 
+    href: '/product',
+    megaMenu: {
+      sections: [
+        {
+          title: 'Core Platform',
+          items: [
+            { name: 'Live Streaming', href: '/live-streaming', description: 'Broadcast in 4K with ultra-low latency', icon: '🎥' },
+            { name: 'Video Analytics', href: '/analytics', description: 'Real-time insights and performance metrics', icon: '📊' },
+            { name: 'Content Management', href: '/content', description: 'Organize and distribute your content', icon: '🗂️' },
+            { name: 'Cloud Recording', href: '/recording', description: 'Automatic cloud storage and backup', icon: '☁️' }
+          ]
+        },
+        {
+          title: 'Developer Tools',
+          items: [
+            { name: 'REST API', href: '/api', description: 'Comprehensive API documentation', icon: '⚡' },
+            { name: 'SDKs', href: '/sdks', description: 'iOS, Android, and Web SDKs', icon: '🛠️' },
+            { name: 'Webhooks', href: '/webhooks', description: 'Real-time event notifications', icon: '🔗' },
+            { name: 'Embed Player', href: '/player', description: 'Customizable video player', icon: '▶️' }
+          ]
+        },
+        {
+          title: 'Enterprise',
+          items: [
+            { name: 'White Label', href: '/white-label', description: 'Fully branded solution', icon: '🏷️' },
+            { name: 'Custom CDN', href: '/cdn', description: 'Dedicated content delivery', icon: '🌐' },
+            { name: 'SLA Support', href: '/sla', description: '24/7 enterprise support', icon: '🛡️' },
+            { name: 'On-Premise', href: '/on-premise', description: 'Self-hosted deployment', icon: '🏢' }
+          ]
+        }
+      ],
+      featured: {
+        title: 'New: AI-Powered Highlights',
+        description: 'Automatically generate video highlights using machine learning',
+        href: '/ai-highlights'
+      }
+    }
+  },
+  { 
+    name: 'Solutions', 
+    href: '/solutions',
+    dropdown: [
+      { name: 'Education', href: '/education', icon: '🎓', description: 'Virtual classrooms and lectures' },
+      { name: 'Healthcare', href: '/healthcare', icon: '🏥', description: 'Telemedicine and training' },
+      { name: 'Corporate', href: '/corporate', icon: '💼', description: 'Internal communications' },
+      { name: 'Gaming', href: '/gaming', icon: '🎮', description: 'Live game streaming' },
+      { name: 'Events', href: '/events', icon: '🎪', description: 'Virtual and hybrid events' }
+    ]
+  },
+  { name: 'Pricing', href: '/pricing' },
+  { 
+    name: 'Resources', 
+    href: '/resources',
+    dropdown: [
+      { name: 'Documentation', href: '/docs', icon: '📚', description: 'Complete API reference' },
+      { name: 'Blog', href: '/blog', icon: '✍️', description: 'Industry insights and updates' },
+      { name: 'Case Studies', href: '/case-studies', icon: '📈', description: 'Customer success stories' },
+      { name: 'Help Center', href: '/help', icon: '❓', description: 'Support and tutorials' },
+      { name: 'Community', href: '/community', icon: '👥', description: 'Developer community' }
+    ]
+  },
+  { name: 'About', href: '/about' }
 ];
 ---
 
-<nav class="flex flex-wrap items-center gap-4 pt-6 pb-16 sm:pt-12 sm:pb-24">
-    <a href="/">
-        <Logo />
-    </a>
-    {
-        !!navItems?.length && (
-            <ul class="flex flex-wrap gap-x-4 gap-y-1">
-                {navItems.map((item) => (
-                    <li>
-                        <a href={item.href} class="inline-block px-1.5 py-1 sm:px-3 sm:py-2">
-                            {item.linkText}
-                        </a>
-                    </li>
+<header class="header-container">
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between py-2 text-sm">
+        <div class="flex items-center gap-6">
+          <div class="flex items-center gap-2 text-blue-200">
+            <span class="status-dot"></span>
+            <span>All systems operational</span>
+          </div>
+          <a href="/status" class="text-blue-200 hover:text-white transition-colors">
+            System Status
+          </a>
+        </div>
+        <div class="hidden md:flex items-center gap-4">
+          <a href="/contact" class="text-blue-200 hover:text-white transition-colors">
+            Contact Sales
+          </a>
+          <span class="text-blue-300">|</span>
+          <a href="tel:+1-800-BULLCAST" class="text-blue-200 hover:text-white transition-colors">
+            📞 1-800-BULLCAST
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Header -->
+  <div class="main-header">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between py-4">
+        
+        <!-- Logo -->
+        <div class="flex items-center">
+          <a href="/" class="logo-container">
+            <span class="logo-text">Bullcast</span>
+          </a>
+        </div>
+
+        <!-- Desktop Navigation - ONLY SHOW ON LARGE SCREENS -->
+        <nav class="hidden xl:flex items-center space-x-8">
+          {navigation.map((item) => (
+            <div class="nav-item">
+              <a href={item.href} class={`nav-link ${(item.dropdown || item.megaMenu) ? 'has-dropdown' : ''}`}>
+                {item.name}
+                {(item.dropdown || item.megaMenu) && (
+                  <span class="dropdown-arrow">▼</span>
+                )}
+              </a>
+              
+              <!-- Mega Menu for Product -->
+              {item.megaMenu && (
+                <div class="mega-menu">
+                  <div class="mega-menu-wrapper">
+                    <div class="mega-menu-sections">
+                      {item.megaMenu.sections.map((section) => (
+                        <div class="mega-menu-section">
+                          <h4 class="mega-menu-title">{section.title}</h4>
+                          <div class="mega-menu-items">
+                            {section.items.map((menuItem) => (
+                              <a href={menuItem.href} class="mega-menu-item">
+                                <span class="mega-menu-icon">{menuItem.icon}</span>
+                                <div class="mega-menu-item-content">
+                                  <div class="mega-menu-item-name">{menuItem.name}</div>
+                                  <div class="mega-menu-item-desc">{menuItem.description}</div>
+                                </div>
+                              </a>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <!-- Featured Section -->
+                    <div class="mega-menu-featured">
+                      <div class="featured-card">
+                        <div class="featured-content">
+                          <h5 class="featured-title">{item.megaMenu.featured.title}</h5>
+                          <p class="featured-desc">{item.megaMenu.featured.description}</p>
+                          <a href={item.megaMenu.featured.href} class="featured-cta">Learn More →</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <!-- Regular Dropdown -->
+              {item.dropdown && (
+                <div class="dropdown-menu">
+                  <div class="dropdown-content">
+                    {item.dropdown.map((dropdownItem) => (
+                      <a href={dropdownItem.href} class="dropdown-item">
+                        <span class="dropdown-icon">{dropdownItem.icon}</span>
+                        <div class="dropdown-item-content">
+                          <div class="dropdown-title">{dropdownItem.name}</div>
+                          <div class="dropdown-desc">{dropdownItem.description}</div>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </nav>
+
+        <!-- CTA Buttons - Desktop -->
+        <div class="hidden xl:flex items-center gap-4">
+          <a href="/login" class="btn-ghost">Sign In</a>
+          <a href="/signup" class="btn-primary">Start Free Trial</a>
+        </div>
+
+        <!-- Mobile Menu Button - SHOW ON MOBILE AND TABLET -->
+        <button id="mobile-menu-btn" class="xl:hidden mobile-menu-button">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="mobile-menu">
+    <div class="mobile-menu-header">
+      <span class="mobile-logo">Bullcast</span>
+      <button id="mobile-close-btn" class="mobile-close-btn">✕</button>
+    </div>
+    
+    <div class="mobile-menu-content">
+      <nav class="mobile-nav">
+        {navigation.map((item, index) => (
+          <div class="mobile-nav-item">
+            <div class="mobile-nav-link-wrapper">
+              <a href={item.href} class="mobile-nav-link">{item.name}</a>
+              {(item.dropdown || item.megaMenu) && (
+                <button class="mobile-expand-btn" data-target={`mobile-submenu-${index}`}>
+                  <span class="expand-icon">+</span>
+                </button>
+              )}
+            </div>
+            
+            {/* Mobile Mega Menu */}
+            {item.megaMenu && (
+              <div id={`mobile-submenu-${index}`} class="mobile-submenu">
+                {item.megaMenu.sections.map((section) => (
+                  <div class="mobile-submenu-section">
+                    <h4 class="mobile-section-title">{section.title}</h4>
+                    {section.items.map((menuItem) => (
+                      <a href={menuItem.href} class="mobile-submenu-item">
+                        <span class="mobile-submenu-icon">{menuItem.icon}</span>
+                        <div class="mobile-submenu-content">
+                          <div class="mobile-submenu-name">{menuItem.name}</div>
+                          <div class="mobile-submenu-desc">{menuItem.description}</div>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
                 ))}
-            </ul>
-        )
+                
+                {/* Mobile Featured */}
+                <div class="mobile-featured-card">
+                  <div class="mobile-featured-title">{item.megaMenu.featured.title}</div>
+                  <div class="mobile-featured-desc">{item.megaMenu.featured.description}</div>
+                  <a href={item.megaMenu.featured.href} class="mobile-featured-cta">Learn More →</a>
+                </div>
+              </div>
+            )}
+
+            {/* Mobile Regular Dropdown */}
+            {item.dropdown && (
+              <div id={`mobile-submenu-${index}`} class="mobile-submenu">
+                {item.dropdown.map((dropdownItem) => (
+                  <a href={dropdownItem.href} class="mobile-submenu-item">
+                    <span class="mobile-submenu-icon">{dropdownItem.icon}</span>
+                    <div class="mobile-submenu-content">
+                      <div class="mobile-submenu-name">{dropdownItem.name}</div>
+                      <div class="mobile-submenu-desc">{dropdownItem.description}</div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </nav>
+      
+      <!-- Mobile CTA -->
+      <div class="mobile-cta">
+        <a href="/login" class="btn-ghost-mobile">Sign In</a>
+        <a href="/signup" class="btn-primary-mobile">Start Free Trial</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  /* Header Container */
+   .header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+  }
+
+  .top-bar {
+    background: linear-gradient(135deg, #059669, #047857);
+    border-bottom: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* Main Header */
+  .main-header {
+    background: rgba(15, 23, 42, 0.95);
+  }
+
+  /* Logo Styles */
+  .logo-container {
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .logo-container:hover {
+    transform: scale(1.05);
+  }
+
+  .logo-text {
+    font-size: 1.75rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #10b981, #059669);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    letter-spacing: -0.025em;
+  }
+
+  /* Desktop Navigation */
+  .nav-item {
+    position: relative;
+  }
+
+   .nav-link {
+    color: #e2e8f0;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .nav-link:hover {
+    color: #10b981;
+    background: rgb(16 185 129 / 0.1);
+  }
+
+ .dropdown-arrow {
+    font-size: 0.75rem;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-item:hover .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+
+
+
+    .mega-menu {
+    position: absolute;
+    top: 100%;
+    left: -400px;
+    width: 1200px;
+    background: rgba(6, 95, 70, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    border-radius: 1rem;
+    padding: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  }
+
+  .nav-item:hover .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .mega-menu-wrapper {
+    display: flex;
+    gap: 3rem;
+    width: 100%;
+  }
+
+  .mega-menu-sections {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mega-menu-section {
+    min-width: 0;
+  }
+
+  .mega-menu-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #94a3b8;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .mega-menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .mega-menu-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    min-width: 0;
+  }
+
+  .mega-menu-item:hover {
+    background: rgb(37 99 235 / 0.1);
+    transform: translateX(4px);
+  }
+
+  .mega-menu-icon {
+    font-size: 1.5rem;
+    width: 2.5rem;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .mega-menu-item-content {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .mega-menu-item-name {
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .mega-menu-item-desc {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 280px;
+  }
+
+  .mega-menu-featured {
+    width: 320px;
+    flex-shrink: 0;
+  }
+
+  .featured-card {
+    background: linear-gradient(135deg, #2563eb, #9333ea);
+    border-radius: 1rem;
+    padding: 2rem;
+    color: white;
+    height: 100%;
+  }
+
+  .featured-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .featured-title {
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .featured-desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+    flex: 1;
+  }
+
+  .featured-cta {
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .featured-cta:hover {
+    transform: translateX(4px);
+  }
+
+  /* Mobile Menu Button - FORCE HIDE ON DESKTOP */
+  .mobile-menu-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+  }
+
+  /* FORCE HIDE ON XL SCREENS */
+  @media (min-width: 1280px) {
+    .mobile-menu-button {
+      display: none !important;
     }
-</nav>
+  }
+
+  .mobile-menu-button:hover {
+    background: rgb(255 255 255 / 0.1);
+  }
+
+  /* Responsive Breakpoints */
+  @media (max-width: 1280px) {
+    body {
+      padding-top: 80px;
+    }
+    
+    /* Adjust mega menu for smaller screens */
+    .mega-menu {
+      width: 900px;
+      left: -300px;
+    }
+    
+    .mega-menu-sections {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    
+    .mega-menu-featured {
+      width: 280px;
+    }
+    
+    .mega-menu-item-desc {
+      max-width: 240px;
+    }
+  }
+
+  .featured-card {
+    background: linear-gradient(135deg, #2563eb, #9333ea);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .featured-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.75rem;
+  }
+
+  .featured-desc {
+    font-size: 0.875rem;
+    color: rgb(255 255 255 / 0.9);
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+  }
+
+  .featured-cta {
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+
+    .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 320px;
+    background: rgba(6, 95, 70, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  }
+
+
+
+  .nav-item:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .dropdown-content {
+    padding: 1rem;
+  }
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown-item:hover {
+    background: rgb(37 99 235 / 0.1);
+    transform: translateY(-2px);
+  }
+
+  .dropdown-icon {
+    font-size: 1.25rem;
+    width: 2rem;
+    text-align: center;
+  }
+
+  .dropdown-title {
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 0.25rem;
+  }
+
+  .dropdown-desc {
+    font-size: 0.875rem;
+    color: #94a3b8;
+  }
+
+  .btn-ghost {
+    color: #e2e8f0;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid rgb(255 255 255 / 0.2);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .btn-ghost:hover {
+    background: rgb(255 255 255 / 0.1);
+    border-color: #10b981;
+    color: #10b981;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #059669, #047857);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px 0 rgb(5 150 105 / 0.3);
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #047857, #065f46);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgb(5 150 105 / 0.4);
+  }
+
+  /* Mobile Menu Button */
+  .mobile-menu-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    gap: 0.25rem;
+  }
+
+  .hamburger-line {
+    width: 1.5rem;
+    height: 2px;
+    background: #e2e8f0;
+    transition: all 0.3s ease;
+    border-radius: 1px;
+  }
+
+  .mobile-menu-button.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .mobile-menu-button.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-button.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  /* Mobile Menu Overlay */
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 400px;
+    height: 100vh;
+    background: linear-gradient(135deg, #065f46, #047857);
+    backdrop-filter: blur(20px);
+    padding: 2rem;
+    transition: all 0.3s ease;
+    z-index: 1002;
+    overflow-y: auto;
+  }
+
+  
+
+  .mobile-menu.active {
+    right: 0;
+  }
+
+  .mobile-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  .mobile-logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2563eb, #9333ea);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  .mobile-close-btn {
+    background: none;
+    border: none;
+    color: #e2e8f0;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .mobile-menu-content {
+    padding: 1.5rem;
+  }
+
+  /* Mobile Navigation */
+  .mobile-nav-item {
+    border-bottom: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  .mobile-nav-link-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mobile-nav-link {
+    color: #e2e8f0;
+    font-weight: 500;
+    font-size: 1.125rem;
+    padding: 1rem 0;
+    text-decoration: none;
+    flex: 1;
+  }
+
+  .mobile-expand-btn {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-expand-btn.active {
+    color: #2563eb;
+  }
+
+  .mobile-expand-btn.active .expand-icon {
+    transform: rotate(45deg);
+  }
+
+  .expand-icon {
+    transition: transform 0.3s ease;
+  }
+
+  /* Mobile Submenu */
+  .mobile-submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .mobile-submenu.active {
+    max-height: 1000px;
+  }
+
+  .mobile-submenu-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .mobile-section-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .mobile-submenu-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-submenu-item:hover {
+    background: rgb(37 99 235 / 0.1);
+    color: #2563eb;
+  }
+
+  .mobile-submenu-icon {
+    font-size: 1.25rem;
+    width: 2rem;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .mobile-submenu-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mobile-submenu-name {
+    font-weight: 500;
+    color: #e2e8f0;
+    margin-bottom: 0.25rem;
+  }
+
+  .mobile-submenu-desc {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+
+  .mobile-featured-card {
+    background: linear-gradient(135deg, #2563eb, #9333ea);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    color: white;
+    margin-top: 1rem;
+  }
+
+  .mobile-featured-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .mobile-featured-desc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+  }
+
+  .mobile-featured-cta {
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .mobile-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  .btn-ghost-mobile {
+    color: #e2e8f0;
+    padding: 0.75rem;
+    text-align: center;
+    border: 1px solid rgb(255 255 255 / 0.2);
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-ghost-mobile:hover {
+    background: rgb(255 255 255 / 0.1);
+    border-color: #2563eb;
+    color: #2563eb;
+  }
+
+  .btn-primary-mobile {
+    background: linear-gradient(135deg, #2563eb, #9333ea);
+    color: white;
+    padding: 0.75rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary-mobile:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgb(37 99 235 / 0.3);
+  }
+
+  /* Add padding to body to account for fixed header */
+  body {
+    padding-top: 120px;
+  }
+
+  /* Responsive Breakpoints */
+  @media (max-width: 1280px) {
+    body {
+      padding-top: 80px;
+    }
+    
+    /* Adjust mega menu for smaller screens */
+    .mega-menu {
+      width: 800px;
+      left: -300px;
+    }
+    
+    .mega-menu-sections {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .mega-menu-featured {
+      width: 250px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .mobile-menu {
+      width: 100%;
+      max-width: none;
+    }
+  }
+</style>
+
+<script>
+  // Mobile menu functionality
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+  const mobileCloseBtn = document.getElementById('mobile-close-btn');
+
+  function openMobileMenu() {
+    mobileMenuBtn?.classList.add('active');
+    mobileMenu?.classList.add('active');
+    mobileMenuOverlay?.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileMenu() {
+    mobileMenuBtn?.classList.remove('active');
+    mobileMenu?.classList.remove('active');
+    mobileMenuOverlay?.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  mobileMenuBtn?.addEventListener('click', openMobileMenu);
+  mobileCloseBtn?.addEventListener('click', closeMobileMenu);
+  mobileMenuOverlay?.addEventListener('click', closeMobileMenu);
+
+  // Mobile submenu toggles
+  const expandBtns = document.querySelectorAll('.mobile-expand-btn');
+  expandBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-target');
+      const submenu = document.getElementById(target);
+      
+      btn.classList.toggle('active');
+      submenu?.classList.toggle('active');
+    });
+  });
+
+  // Header scroll effect with proper typing
+  let lastScrollY = window.scrollY;
+  const header = document.querySelector('.header-container') as HTMLElement;
+
+  if (header) {
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        header.style.transform = 'translateY(-100%)';
+      } else {
+        header.style.transform = 'translateY(0)';
+      }
+      
+      lastScrollY = currentScrollY;
+    });
+  }
+</script>

@@ -1,0 +1,123 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const seoData = {
+    title: 'Solutions - Industry-Specific Broadcasting | Bullcast',
+    description: 'Tailored broadcasting solutions for education, healthcare, corporate, gaming, and events. Discover how Bullcast fits your industry needs.',
+    keywords: 'education streaming, healthcare broadcasting, corporate communications, gaming streams, virtual events'
+};
+
+const solutions = [
+    {
+        title: 'Education',
+        icon: '🎓',
+        description: 'Virtual classrooms, lecture streaming, and interactive learning experiences',
+        features: ['Interactive Whiteboards', 'Student Engagement Tools', 'Recording & Playback', 'Multi-Campus Streaming']
+    },
+    {
+        title: 'Healthcare',
+        icon: '🏥',
+        description: 'Telemedicine, medical training, and secure patient consultations',
+        features: ['HIPAA Compliance', 'Secure Streaming', 'Medical Training', 'Remote Consultations']
+    },
+    {
+        title: 'Corporate',
+        icon: '💼',
+        description: 'Internal communications, training, and company-wide broadcasts',
+        features: ['Town Halls', 'Training Sessions', 'Internal Comms', 'Global Reach']
+    },
+    {
+        title: 'Gaming',
+        icon: '🎮',
+        description: 'Live game streaming, tournaments, and community engagement',
+        features: ['Ultra-Low Latency', 'Chat Integration', 'Tournament Tools', 'Multi-Platform']
+    },
+    {
+        title: 'Events',
+        icon: '🎪',
+        description: 'Virtual and hybrid events, conferences, and live performances',
+        features: ['Virtual Venues', 'Networking Tools', 'Registration', 'Analytics']
+    }
+];
+---
+
+<Layout title={seoData.title} description={seoData.description} keywords={seoData.keywords}>
+    <Header />
+
+    <main class="pt-32">
+        <!-- Hero Section -->
+        <section class="hero-gradient py-20">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-5xl font-bold text-white mb-6">
+                    Industry-Specific <span class="text-gradient">Solutions</span>
+                </h1>
+                <p class="text-xl text-green-100 mb-8 max-w-3xl mx-auto">
+                    Tailored broadcasting solutions designed for your industry's unique needs and requirements.
+                </p>
+            </div>
+        </section>
+
+        <!-- Solutions Grid -->
+        <section class="py-20">
+            <div class="container mx-auto px-4">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {
+                        solutions.map((solution) => (
+                            <div class="solution-card">
+                                <div class="solution-icon">{solution.icon}</div>
+                                <h3 class="text-2xl font-bold mb-4">{solution.title}</h3>
+                                <p class="text-gray-600 mb-6">{solution.description}</p>
+                                <ul class="space-y-2">
+                                    {solution.features.map((feature) => (
+                                        <li class="flex items-center gap-2">
+                                            <span class="text-green-600">✓</span>
+                                            <span>{feature}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                                <a href={`/solutions/${solution.title.toLowerCase()}`} class="btn-primary mt-6 inline-block">
+                                    Learn More
+                                </a>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <Footer />
+</Layout>
+
+<style>
+    .hero-gradient {
+        background: linear-gradient(135deg, #059669, #047857);
+    }
+
+    .text-gradient {
+        background: linear-gradient(to right, #10b981, #059669);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    .solution-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .solution-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    }
+
+    .solution-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+</style>

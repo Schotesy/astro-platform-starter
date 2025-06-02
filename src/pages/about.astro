@@ -1,0 +1,890 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const seoData = {
+  title: "About Bullcast - Leading Broadcasting Platform",
+  description: "Learn about Bullcast's mission to revolutionize live broadcasting with cutting-edge technology, unmatched reliability, and innovative solutions.",
+  keywords: "about bullcast, broadcasting company, live streaming technology, video platform team",
+  ogImage: "/images/og-about.jpg",
+  canonicalURL: "https://bullcast.com/about"
+};
+
+const stats = [
+  { number: "10M+", label: "Hours Streamed", prefix: "$" },
+  { number: "500K+", label: "Active Users", prefix: "$" },
+  { number: "100%", label: "Uptime", prefix: "$" },
+  { number: "150+", label: "Countries", prefix: "$" }
+];
+
+const timeline = [
+  { year: "2020", title: "Foundation", description: "Bullcast was born from a vision to democratize professional broadcasting" },
+  { year: "2021", title: "First Million", description: "Reached our first million streaming hours and $1M ARR" },
+  { year: "2022", title: "Global Expansion", description: "Expanded to 50+ countries with enterprise partnerships" },
+  { year: "2023", title: "AI Innovation", description: "Launched AI-powered features and reached $10M ARR" },
+  { year: "2024", title: "Future Vision", description: "Building the next generation of immersive broadcasting" }
+];
+
+const team = [
+  { name: "Alex Chen", role: "CEO & Founder", image: "👨‍💼" },
+  { name: "Sarah Johnson", role: "CTO", image: "👩‍💻" },
+  { name: "Marcus Rodriguez", role: "VP Engineering", image: "👨‍🔧" }
+];
+---
+
+<Layout 
+  title={seoData.title}
+  description={seoData.description}
+  keywords={seoData.keywords}
+  ogImage={seoData.ogImage}
+  canonicalURL={seoData.canonicalURL}
+>
+  <Header />
+  
+  <main class="main-content">
+    <!-- Hero Section with Floating Dollar Signs -->
+    <section class="hero-section">
+      <div class="floating-dollars">
+        <span class="dollar dollar-1">$</span>
+        <span class="dollar dollar-2">$</span>
+        <span class="dollar dollar-3">$</span>
+        <span class="dollar dollar-4">$</span>
+        <span class="dollar dollar-5">$</span>
+        <span class="dollar dollar-6">$</span>
+      </div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center max-w-4xl mx-auto">
+          <h1 class="hero-title">
+            <span class="title-line">Revolutionizing</span>
+            <span class="title-line gradient-text">Broadcasting</span>
+            <span class="title-line">for Everyone</span>
+          </h1>
+          <p class="hero-subtitle">
+            We're not just building a platform. We're crafting the future of how the world connects, shares, and monetizes content.
+          </p>
+          <div class="hero-cta">
+            <button class="cta-button primary">
+              <span>Join Our Mission</span>
+              <div class="button-shine"></div>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Animated Background Grid -->
+      <div class="grid-background"></div>
+    </section>
+
+    <!-- Stats Section with Counter Animation -->
+    <section class="stats-section">
+      <div class="container mx-auto px-4">
+        <div class="stats-grid">
+          {stats.map((stat, index) => (
+            <div class="stat-card" data-delay={index * 200}>
+              <div class="stat-icon">{stat.prefix}</div>
+              <div class="stat-number" data-target={stat.number}>{stat.number}</div>
+              <div class="stat-label">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission Section with Parallax -->
+    <section class="mission-section">
+      <div class="container mx-auto px-4">
+        <div class="mission-content">
+          <div class="mission-text">
+            <h2 class="section-title">Our Mission</h2>
+            <p class="mission-description">
+              To democratize professional broadcasting technology and create new revenue streams for content creators worldwide. 
+              We believe everyone deserves access to enterprise-grade streaming tools.
+            </p>
+            <div class="mission-features">
+              <div class="feature-item">
+                <span class="feature-icon">💰</span>
+                <span>Monetization First</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">🚀</span>
+                <span>Innovation Driven</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">🌍</span>
+                <span>Globally Accessible</span>
+              </div>
+            </div>
+          </div>
+          <div class="mission-visual">
+            <div class="floating-card card-1">
+              <div class="card-content">
+                <span class="card-icon">📈</span>
+                <span class="card-text">Revenue Growth</span>
+              </div>
+            </div>
+            <div class="floating-card card-2">
+              <div class="card-content">
+                <span class="card-icon">🎯</span>
+                <span class="card-text">Precision Targeting</span>
+              </div>
+            </div>
+            <div class="floating-card card-3">
+              <div class="card-content">
+                <span class="card-icon">⚡</span>
+                <span class="card-text">Lightning Fast</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+      <div class="container mx-auto px-4">
+        <h2 class="section-title text-center mb-20">Our Journey</h2>
+        <div class="timeline">
+          {timeline.map((item, index) => (
+            <div class="timeline-item" data-year={item.year}>
+              <div class="timeline-marker">
+                <span class="timeline-dollar">$</span>
+              </div>
+              <div class="timeline-content">
+                <div class="timeline-year">{item.year}</div>
+                <h3 class="timeline-title">{item.title}</h3>
+                <p class="timeline-description">{item.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+      <div class="container mx-auto px-4">
+        <h2 class="section-title text-center mb-20">Meet the Team</h2>
+        <div class="team-grid">
+          {team.map((member, index) => (
+            <div class="team-card" data-index={index}>
+              <div class="team-avatar">
+                <span class="avatar-emoji">{member.image}</span>
+                <div class="avatar-glow"></div>
+              </div>
+              <h3 class="team-name">{member.name}</h3>
+              <p class="team-role">{member.role}</p>
+              <div class="team-dollar">$</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="final-cta">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="cta-title">Ready to Build the Future?</h2>
+        <p class="cta-subtitle">Join thousands of creators already earning with Bullcast</p>
+        <div class="cta-buttons">
+          <button class="cta-button primary large">
+            <span>Start Earning Today</span>
+            <div class="button-shine"></div>
+          </button>
+          <button class="cta-button secondary large">
+            <span>View Pricing</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  :root {
+    --primary-green: #059669;
+    --dark-green: #047857;
+    --darker-green: #065f46;
+    --light-green: #10b981;
+    --gold: #f59e0b;
+    --light-gold: #fbbf24;
+  }
+
+  /* Remove weird spacing and fix overflow */
+  .main-content {
+    margin-top: 0;
+    padding-top: 120px; /* Account for fixed header */
+  }
+
+  /* Hero Section */
+  .hero-section {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+    display: flex;
+    align-items: center;
+    color: white;
+  }
+
+  .floating-dollars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .dollar {
+    position: absolute;
+    font-size: 2rem;
+    color: var(--gold);
+    opacity: 0.3;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .dollar-1 { top: 20%; left: 10%; animation-delay: 0s; }
+  .dollar-2 { top: 60%; left: 85%; animation-delay: 1s; }
+  .dollar-3 { top: 30%; left: 75%; animation-delay: 2s; }
+  .dollar-4 { top: 80%; left: 20%; animation-delay: 3s; }
+  .dollar-5 { top: 15%; left: 60%; animation-delay: 4s; }
+  .dollar-6 { top: 70%; left: 50%; animation-delay: 5s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+  }
+
+  .grid-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 20s linear infinite;
+  }
+
+  @keyframes gridMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+  }
+
+  .hero-title {
+    font-size: 4.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+  }
+
+  .title-line {
+    display: block;
+    animation: slideInUp 1s ease-out forwards;
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  .title-line:nth-child(1) { animation-delay: 0.2s; }
+  .title-line:nth-child(2) { animation-delay: 0.4s; }
+  .title-line:nth-child(3) { animation-delay: 0.6s; }
+
+  .gradient-text {
+    background: linear-gradient(45deg, var(--gold), var(--light-gold));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+
+  @keyframes slideInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-subtitle {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+    animation: fadeIn 1s ease-out 0.8s forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 0.9; }
+  }
+
+  .hero-cta {
+    animation: fadeIn 1s ease-out 1s forwards;
+    opacity: 0;
+  }
+
+  /* Button Styles */
+  .cta-button {
+    position: relative;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .cta-button.primary {
+    background: linear-gradient(135deg, var(--gold), var(--light-gold));
+    color: white;
+  }
+
+  .cta-button.secondary {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+  }
+
+  .cta-button.large {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.2rem;
+  }
+
+  .button-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .cta-button:hover .button-shine {
+    left: 100%;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  }
+
+  /* Stats Section */
+  .stats-section {
+    padding: 6rem 0;
+    background: #f8fafc;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .stat-card {
+    background: white;
+    padding: 3rem 2rem;
+    border-radius: 1.5rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    animation: slideInUp 0.8s ease-out forwards;
+    animation-play-state: paused;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  }
+
+  .stat-icon {
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .stat-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary-green);
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 1.1rem;
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  /* Mission Section */
+  .mission-section {
+    padding: 8rem 0;
+    background: white;
+  }
+
+  .mission-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .section-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary-green);
+    margin-bottom: 2rem;
+  }
+
+  .mission-description {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: #475569;
+    margin-bottom: 3rem;
+  }
+
+  .mission-features {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 600;
+    color: var(--primary-green);
+  }
+
+  .feature-icon {
+    font-size: 1.5rem;
+  }
+
+  /* Fixed Mission Visual Cards */
+  .mission-visual {
+    position: relative;
+    height: 400px;
+  }
+
+  .floating-card {
+    position: absolute;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+
+  .floating-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  }
+
+  .card-1 {
+    top: 50px;
+    left: 50px;
+    z-index: 3;
+  }
+
+  .card-2 {
+    top: 150px;
+    right: 80px;
+    z-index: 2;
+  }
+
+  .card-3 {
+    bottom: 50px;
+    left: 100px;
+    z-index: 1;
+  }
+
+  .card-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    white-space: nowrap;
+  }
+
+  .card-icon {
+    font-size: 1.5rem;
+  }
+
+  .card-text {
+    font-weight: 600;
+    color: var(--primary-green);
+  }
+
+  /* Timeline Section */
+  .timeline-section {
+    padding: 8rem 0;
+    background: #f8fafc;
+  }
+
+  .timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--primary-green);
+    transform: translateX(-50%);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 4rem;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.6s ease;
+  }
+
+  .timeline-item:nth-child(odd) {
+    padding-right: 50%;
+    text-align: right;
+  }
+
+  .timeline-item:nth-child(even) {
+    padding-left: 50%;
+    text-align: left;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 60px;
+    height: 60px;
+    background: var(--primary-green);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .timeline-dollar {
+    color: var(--gold);
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .timeline-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  .timeline-item:nth-child(odd) .timeline-content {
+    margin-right: 4rem;
+  }
+
+  .timeline-item:nth-child(even) .timeline-content {
+    margin-left: 4rem;
+  }
+
+  .timeline-year {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+  }
+
+  .timeline-description {
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  /* Team Section - Fixed for 3 people */
+  .team-section {
+    padding: 8rem 0;
+    background: white;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .team-card {
+    position: relative;
+    background: white;
+    padding: 3rem 2rem;
+    border-radius: 1.5rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+
+  .team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  }
+
+  .team-avatar {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 2rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-green), var(--gold));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .avatar-emoji {
+    font-size: 3rem;
+  }
+
+  .avatar-glow {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--primary-green));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+
+  .team-card:hover .avatar-glow {
+    opacity: 0.3;
+  }
+
+  .team-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-green);
+    margin-bottom: 0.5rem;
+  }
+
+  .team-role {
+    color: #64748b;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .team-dollar {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: var(--gold);
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  .team-card:hover .team-dollar {
+    opacity: 1;
+    transform: rotate(360deg);
+  }
+
+  /* Final CTA */
+  .final-cta {
+    padding: 8rem 0;
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+    color: white;
+  }
+
+  .cta-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+  }
+
+  .cta-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .main-content {
+      padding-top: 80px;
+    }
+
+    .mission-content {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .team-grid {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+    }
+
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) {
+      padding: 0 0 0 4rem;
+      text-align: left;
+    }
+
+    .timeline::before {
+      left: 2rem;
+    }
+
+    .timeline-marker {
+      left: 2rem;
+    }
+
+    .timeline-content {
+      margin: 0;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content,
+    .timeline-item:nth-child(even) .timeline-content {
+      margin: 0;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+    }
+
+    .cta-title {
+      font-size: 2.5rem;
+    }
+
+    .mission-visual {
+      height: 300px;
+    }
+
+    .floating-card {
+      position: relative !important;
+      margin-bottom: 1rem;
+    }
+
+    .card-1, .card-2, .card-3 {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+    }
+  }
+</style>
+
+<script>
+  // Intersection Observer for animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+        
+        // Counter animation for stats
+        if (entry.target.classList.contains('stat-card')) {
+          const numberElement = entry.target.querySelector('.stat-number');
+          const targetValue = numberElement.getAttribute('data-target');
+          animateCounter(numberElement, targetValue);
+        }
+        
+        // Timeline items
+        if (entry.target.classList.contains('timeline-item')) {
+          const delay = Array.from(entry.target.parentNode.children).indexOf(entry.target) * 200;
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, delay);
+        }
+      }
+    });
+  }, observerOptions);
+
+  // Counter animation function
+  function animateCounter(element, target) {
+    const isPercentage = target.includes('%');
+    const isPlus = target.includes('+');
+    const numericValue = parseInt(target.replace(/[^\d]/g, ''));
+    let current = 0;
+    const increment = numericValue / 50;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= numericValue) {
+        current = numericValue;
+        clearInterval(timer);
+      }
+      
+      let displayValue = Math.floor(current);
+      if (target.includes('M')) displayValue = (displayValue / 1000000).toFixed(1) + 'M';
+      else if (target.includes('K')) displayValue = (displayValue / 1000).toFixed(0) + 'K';
+      
+      if (isPercentage) displayValue += '%';
+      if (isPlus) displayValue += '+';
+      
+      element.textContent = displayValue;
+    }, 50);
+  }
+
+  // Observe elements when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    const animatedElements = document.querySelectorAll('.stat-card, .timeline-item, .team-card');
+    animatedElements.forEach(el => observer.observe(el));
+
+    // Parallax effect for floating cards
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const cards = document.querySelectorAll('.floating-card');
+      cards.forEach((card, index) => {
+        const speed = 0.5 + (index * 0.1);
+        const rect = card.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          card.style.transform = `translateY(${scrolled * speed * 0.1}px)`;
+        }
+      });
+    });
+
+    // Add stagger animation to stat cards
+    const statCards = document.querySelectorAll('.stat-card');
+    statCards.forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.2}s`;
+    });
+  });
+</script>

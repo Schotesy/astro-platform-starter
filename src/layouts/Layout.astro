@@ -1,34 +1,249 @@
 ---
-import '../../src/styles/globals.css';
-import '@fontsource-variable/inter/wght.css';
-import interWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import '../styles/tailwind.css';
 
-interface Props {
+export interface Props {
     title: string;
+    description: string;
+    keywords?: string;
+    ogImage?: string;
+    canonicalURL?: string;
+    author?: string;
+    type?: string;
 }
 
-const { title } = Astro.props;
+const {
+    title,
+    description,
+    keywords = 'broadcasting, media, streaming, professional video',
+    ogImage = '/images/og-default.jpg',
+    canonicalURL = Astro.url.href,
+    author = 'Bullcast',
+    type = 'website'
+} = Astro.props;
+
+// Generate structured data
+const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Bullcast',
+    url: canonicalURL,
+    description: description,
+    publisher: {
+        '@type': 'Organization',
+        name: 'Bullcast',
+        logo: {
+            '@type': 'ImageObject',
+            url: 'https://bullcast.com/logo.png'
+        }
+    }
+};
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
     <head>
+        <!-- Essential Meta Tags -->
         <meta charset="UTF-8" />
-        <title>{title}</title>
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="generator" content={Astro.generator} />
+
+        <!-- SEO Meta Tags -->
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="keywords" content={keywords} />
+        <meta name="author" content={author} />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={canonicalURL} />
+
+        <!-- Open Graph Meta Tags -->
+        <meta property="og:type" content={type} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:url" content={canonicalURL} />
+        <meta property="og:site_name" content="Bullcast" />
+
+        <!-- Twitter Card Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
+        <meta name="twitter:creator" content="@bullcast" />
+
+        <!-- Favicon and Icons -->
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="preload" as="font" type="font/woff2" href={interWoff2} crossorigin />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+
+        <!-- Preconnect to External Domains -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        <!-- Critical CSS for Performance -->
+        <style>
+            html {
+                font-family: system-ui, sans-serif;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                line-height: 1.6;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            .loading {
+                opacity: 0;
+                animation: fadeIn 0.5s ease-in-out forwards;
+            }
+
+            @keyframes fadeIn {
+                to {
+                    opacity: 1;
+                }
+            }
+        </style>
+
+        <!-- Structured Data -->
+        <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+        <!-- Performance Hints -->
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />
+
+        <!-- Theme Color -->
+        <meta name="theme-color" content="#2563eb" />
+        <meta name="msapplication-TileColor" content="#2563eb" />
     </head>
-    <body class="antialiased text-white bg-complementary">
-        <div class="flex flex-col min-h-screen px-6 bg-noise sm:px-12">
-            <div class="flex flex-col w-full max-w-5xl mx-auto grow">
-                <Header />
-                <main class="grow"><slot /></main>
-                <Footer />
-            </div>
+
+    <body class="loading">
+        <!-- Skip to main content for accessibility -->
+        <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50">
+            Skip to main content
+        </a>
+
+        <!-- Main Content -->
+        <div id="main-content">
+            <slot />
         </div>
+
+        <!-- Performance Monitoring -->
+        <script>
+            // Mark page as loaded
+            document.body.classList.add('loaded');
+
+            // Performance monitoring with correct web-vitals imports
+            if ('performance' in window) {
+                window.addEventListener('load', () => {
+                    // Track Core Web Vitals with current API
+                    import('web-vitals')
+                        .then((webVitals) => {
+                            // Current web-vitals API (v4+)
+                            if (webVitals.onCLS) {
+                                webVitals.onCLS((metric) => {
+                                    console.log('CLS:', metric);
+                                });
+                            }
+
+                            if (webVitals.onINP) {
+                                webVitals.onINP((metric) => {
+                                    console.log('INP:', metric);
+                                });
+                            }
+
+                            if (webVitals.onFCP) {
+                                webVitals.onFCP((metric) => {
+                                    console.log('FCP:', metric);
+                                });
+                            }
+
+                            if (webVitals.onLCP) {
+                                webVitals.onLCP((metric) => {
+                                    console.log('LCP:', metric);
+                                });
+                            }
+
+                            if (webVitals.onTTFB) {
+                                webVitals.onTTFB((metric) => {
+                                    console.log('TTFB:', metric);
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            console.log('Web Vitals not available:', error);
+                        });
+                });
+            }
+        </script>
+
+        <!-- Service Worker Registration -->
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker
+                        .register('/sw.js')
+                        .then((registration) => {
+                            console.log('SW registered: ', registration);
+                        })
+                        .catch((registrationError) => {
+                            console.log('SW registration failed: ', registrationError);
+                        });
+                });
+            }
+        </script>
     </body>
 </html>
+
+<style is:global>
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .focus\:not-sr-only:focus {
+        position: static;
+        width: auto;
+        height: auto;
+        padding: 0.5rem 1rem;
+        margin: 0;
+        overflow: visible;
+        clip: auto;
+        white-space: normal;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    *:focus {
+        outline: 2px solid #2563eb;
+        outline-offset: 2px;
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+    }
+</style>

@@ -1,21 +1,207 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ContextAlert from '../components/ContextAlert.astro';
-import Markdown from '../components/Markdown.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.tsx';
+import FeatureGrid from '../components/FeatureGrid.tsx';
+import StatsSection from '../components/StatsSection.tsx';
+import TestimonialCarousel from '../components/TestimonialCarousel.tsx';
+import CTASection from '../components/CTASection.tsx';
+import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+import { ViewTransitions } from 'astro:transitions';
 
-const explainer = `
-An Astro website can go way beyond static pages - on the right platform.
+// SEO and performance data
+const seoData = {
+    title: 'Bullcast - Professional Broadcasting & Media Solutions',
+    description:
+        "Transform your content strategy with Bullcast's cutting-edge broadcasting platform. Advanced analytics, real-time streaming, and enterprise-grade security for modern media professionals.",
+    keywords: 'broadcasting, media, streaming, analytics, content management, professional video',
+    ogImage: '/images/og-bullcast.jpg',
+    canonicalURL: 'https://bullcast.com'
+};
 
-Netlify supports not only [Streaming SSR](https://docs.astro.build/en/guides/server-side-rendering/#html-streaming) and fast [Edge Middleware](https://docs.astro.build/en/guides/middleware/), but also [on-demand revalidation](https://www.netlify.com/blog/cache-tags-and-purge-api-on-netlify/) and [stale-while-revalidate](https://www.netlify.com/blog/swr-and-fine-grained-cache-control/). 
-Any page or data can be rebuilt only when needed, without site visitors ever getting a performance hit.
-`;
+const features = [
+    {
+        icon: '📡',
+        title: 'Real-time Broadcasting',
+        description: 'Stream to millions with 99.9% uptime and sub-second latency',
+        stats: '50M+ viewers served'
+    },
+    {
+        icon: '📊',
+        title: 'Advanced Analytics',
+        description: 'Deep insights into audience engagement and content performance',
+        stats: '500+ metrics tracked'
+    },
+    {
+        icon: '🔒',
+        title: 'Enterprise Security',
+        description: 'Bank-grade encryption and compliance with global standards',
+        stats: 'SOC 2 Type II certified'
+    },
+    {
+        icon: '⚡',
+        title: 'Lightning Fast CDN',
+        description: 'Global content delivery with edge optimization',
+        stats: '200+ edge locations'
+    }
+];
+
+const testimonials = [
+    {
+        name: 'Sarah Chen',
+        role: 'CTO, MediaTech Inc',
+        content: 'Bullcast transformed our streaming infrastructure. 300% improvement in viewer engagement.',
+        avatar: '/images/testimonial-1.jpg',
+        company: 'MediaTech Inc'
+    },
+    {
+        name: 'Marcus Rodriguez',
+        role: 'Head of Digital, SportsCorp',
+        content: 'The analytics dashboard gives us insights we never had before. Game-changing platform.',
+        avatar: '/images/testimonial-2.jpg',
+        company: 'SportsCorp'
+    }
+];
+
+const stats = [
+    { number: '50M+', label: 'Monthly Active Users' },
+    { number: '99.9%', label: 'Uptime Guarantee' },
+    { number: '200+', label: 'Countries Served' },
+    { number: '24/7', label: 'Expert Support' }
+];
 ---
 
-<Layout title="Welcome to Astro.">
-    <ContextAlert class="mb-8" />
-    <h1 class="mb-10">Netlify Platform Starter for Astro</h1>
-    <Markdown content={explainer} class="mb-10 text-lg" />
-    <p>
-        <a href="https://docs.netlify.com/frameworks/astro/" class="btn btn-lg sm:min-w-64">Read the Docs</a>
-    </p>
+<Layout title={seoData.title} description={seoData.description} keywords={seoData.keywords} ogImage={seoData.ogImage} canonicalURL={seoData.canonicalURL}>
+    <ViewTransitions />
+
+    <Header />
+
+    <!-- Structured Data for SEO -->
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'Bullcast',
+            url: 'https://bullcast.com',
+            logo: 'https://bullcast.com/logo.png',
+            description: seoData.description,
+            foundingDate: '2024',
+            industry: 'Broadcasting Technology',
+            contactPoint: {
+                '@type': 'ContactPoint',
+                telephone: '+1-800-BULLCAST',
+                contactType: 'customer service'
+            }
+        })}
+    />
+
+    <main class="overflow-hidden">
+        <!-- Hero Section with Video Background -->
+        <section class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+            <div class="absolute inset-0 bg-black/20"></div>
+            <video autoplay muted loop class="absolute inset-0 w-full h-full object-cover -z-10" poster="/images/hero-poster.jpg">
+                <source src="/videos/hero-bg.mp4" type="video/mp4" />
+            </video>
+
+            <Hero
+                title="Transform Your Broadcasting"
+                subtitle="Enterprise-grade streaming platform trusted by industry leaders"
+                ctaText="Start Free Trial"
+                ctaLink="/signup"
+                features={['Real-time Analytics', 'Global CDN', '99.9% Uptime']}
+                client:load
+            />
+        </section>
+
+        <!-- Stats Section -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-4">
+                <StatsSection stats={stats} client:visible />
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section class="py-24 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Why Industry Leaders Choose Bullcast</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Cutting-edge technology meets intuitive design. Built for scale, optimized for performance.
+                    </p>
+                </div>
+                <FeatureGrid features={features} client:visible />
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="py-24 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Trusted by Industry Leaders</h2>
+                </div>
+                <TestimonialCarousel testimonials={testimonials} client:visible />
+            </div>
+        </section>
+
+        <!-- Technology Stack Showcase -->
+        <section class="py-24 bg-slate-900 text-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-4">Built on Modern Technology</h2>
+                    <p class="text-xl text-gray-300">Enterprise-grade infrastructure that scales with your needs</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center opacity-70">
+                    {
+                        ['AWS', 'Kubernetes', 'React', 'TypeScript', 'WebRTC', 'GraphQL'].map((tech) => (
+                            <div class="text-center">
+                                <div class="bg-white/10 rounded-lg p-4 mb-2">
+                                    <span class="text-2xl font-bold">{tech}</span>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-24 bg-gradient-to-r from-blue-600 to-purple-600">
+            <CTASection
+                title="Ready to Transform Your Broadcasting?"
+                subtitle="Join thousands of professionals already using Bullcast"
+                primaryCTA="Start Free Trial"
+                secondaryCTA="Schedule Demo"
+                client:visible
+            />
+        </section>
+    </main>
+
+    <Footer />
 </Layout>
+
+<style>
+    /* Critical CSS for above-the-fold content */
+    .hero-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    /* Optimize font loading */
+    @font-face {
+        font-family: 'Inter';
+        font-display: swap;
+        src: url('/fonts/inter.woff2') format('woff2');
+    }
+</style>
+
+<!-- Performance optimizations -->
+<script>
+    // Preload critical resources
+    const preloadLink = document.createElement('link');
+    preloadLink.rel = 'preload';
+    preloadLink.href = '/videos/hero-bg.mp4';
+    preloadLink.as = 'video';
+    document.head.appendChild(preloadLink);
+</script>

@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const seoData = {
+    title: 'Product - Bullcast Broadcasting Platform',
+    description: "Discover Bullcast's powerful broadcasting features including 4K streaming, real-time analytics, and enterprise-grade reliability.",
+    keywords: 'live streaming, video analytics, broadcasting platform, 4K streaming'
+};
+---
+
+<Layout title={seoData.title} description={seoData.description} keywords={seoData.keywords}>
+    <Header />
+
+    <main class="pt-32">
+        <!-- Hero Section -->
+        <section class="hero-gradient py-20">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-5xl font-bold text-white mb-6">
+                    Professional Broadcasting <span class="text-gradient">Platform</span>
+                </h1>
+                <p class="text-xl text-green-100 mb-8 max-w-3xl mx-auto">
+                    Stream in 4K, analyze in real-time, and scale globally with our enterprise-grade broadcasting solution.
+                </p>
+                <div class="flex gap-4 justify-center">
+                    <a href="/signup" class="btn-primary">Start Free Trial</a>
+                    <a href="/demo" class="btn-secondary">Watch Demo</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-16">Core Features</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Feature cards will be added here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <Footer />
+</Layout>
+
+<style>
+    .hero-gradient {
+        background: linear-gradient(135deg, #059669, #047857);
+    }
+
+    .text-gradient {
+        background: linear-gradient(to right, #10b981, #059669);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+</style>
